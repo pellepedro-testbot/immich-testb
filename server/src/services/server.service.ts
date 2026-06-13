@@ -17,7 +17,7 @@ import {
 import { StorageFolder, SystemMetadataKey } from 'src/enum';
 import { UserStatsQueryResponse } from 'src/repositories/user.repository';
 import { BaseService } from 'src/services/base.service';
-import { asHumanReadable } from 'src/utils/bytes';
+import { formatDiskInfo } from 'src/utils/disk';
 import { mimeTypes } from 'src/utils/mime-types';
 import {
   isDuplicateDetectionEnabled,
@@ -67,18 +67,7 @@ export class ServerService extends BaseService {
   async getStorage(): Promise<ServerStorageResponseDto> {
     const libraryBase = StorageCore.getBaseFolder(StorageFolder.Library);
     const diskInfo = await this.storageRepository.checkDiskUsage(libraryBase);
-
-    const usagePercentage = (((diskInfo.total - diskInfo.free) / diskInfo.total) * 100).toFixed(2);
-
-    const serverInfo = new ServerStorageResponseDto();
-    serverInfo.diskAvailable = asHumanReadable(diskInfo.available);
-    serverInfo.diskSize = asHumanReadable(diskInfo.total);
-    serverInfo.diskUse = asHumanReadable(diskInfo.total - diskInfo.free);
-    serverInfo.diskAvailableRaw = diskInfo.available;
-    serverInfo.diskSizeRaw = diskInfo.total;
-    serverInfo.diskUseRaw = diskInfo.total - diskInfo.free;
-    serverInfo.diskUsagePercentage = Number.parseFloat(usagePercentage);
-    return serverInfo;
+    return Object.assign(new ServerStorageResponseDto(), formatDiskInfo(diskInfo));
   }
 
   ping(): ServerPingResponse {
