@@ -64,6 +64,10 @@ export class ServerService extends BaseService {
     };
   }
 
+  /**
+   * Returns disk usage statistics for the Immich library storage folder,
+   * including total size, used space, available space, and usage percentage.
+   */
   async getStorage(): Promise<ServerStorageResponseDto> {
     const libraryBase = StorageCore.getBaseFolder(StorageFolder.Library);
     const diskInfo = await this.storageRepository.checkDiskUsage(libraryBase);
@@ -81,6 +85,10 @@ export class ServerService extends BaseService {
     return serverInfo;
   }
 
+  /**
+   * Returns a simple pong response to confirm the server is reachable.
+   * Used by load balancers and health checks that do not require authentication.
+   */
   ping(): ServerPingResponse {
     return { res: 'pong' };
   }
