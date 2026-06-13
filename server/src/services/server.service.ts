@@ -8,6 +8,7 @@ import {
   ServerApkLinksDto,
   ServerConfigDto,
   ServerFeaturesDto,
+  ServerHealthResponseDto,
   ServerMediaTypesResponseDto,
   ServerPingResponse,
   ServerStatsResponseDto,
@@ -83,6 +84,10 @@ export class ServerService extends BaseService {
 
   ping(): ServerPingResponse {
     return { res: 'pong' };
+  }
+
+  getHealth(): ServerHealthResponseDto {
+    return { status: 'ok', uptime: process.uptime() };
   }
 
   async getFeatures(): Promise<ServerFeaturesDto> {

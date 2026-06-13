@@ -7,6 +7,7 @@ import {
   ServerApkLinksDto,
   ServerConfigDto,
   ServerFeaturesDto,
+  ServerHealthResponseDto,
   ServerMediaTypesResponseDto,
   ServerPingResponse,
   ServerStatsResponseDto,
@@ -29,6 +30,17 @@ export class ServerController {
     private systemMetadataService: SystemMetadataService,
     private versionService: VersionService,
   ) {}
+
+  @Get('health')
+  @Authenticated({ permission: Permission.ServerAbout })
+  @Endpoint({
+    summary: 'Get server health',
+    description: 'Retrieve the current health status and uptime of the server.',
+    history: new HistoryBuilder().added('v1').beta('v1').stable('v2'),
+  })
+  getHealth(): ServerHealthResponseDto {
+    return this.service.getHealth();
+  }
 
   @Get('about')
   @Authenticated({ permission: Permission.ServerAbout })

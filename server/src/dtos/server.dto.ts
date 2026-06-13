@@ -128,6 +128,13 @@ const ServerConfigSchema = z
   })
   .meta({ id: 'ServerConfigDto' });
 
+const ServerHealthResponseSchema = z
+  .object({
+    status: z.enum(['ok', 'degraded']).describe('Server health status'),
+    uptime: z.number().describe('Server uptime in seconds'),
+  })
+  .meta({ id: 'ServerHealthResponseDto' });
+
 const ServerFeaturesSchema = z
   .object({
     smartSearch: z.boolean().describe('Whether smart search is enabled'),
@@ -191,6 +198,7 @@ export class ServerStatsResponseDto extends createZodDto(ServerStatsResponseSche
 export class ServerMediaTypesResponseDto extends createZodDto(ServerMediaTypesResponseSchema) {}
 export class ServerConfigDto extends createZodDto(ServerConfigSchema) {}
 export class ServerFeaturesDto extends createZodDto(ServerFeaturesSchema) {}
+export class ServerHealthResponseDto extends createZodDto(ServerHealthResponseSchema) {}
 
 @ExtraModel()
 export class ReleaseEventV1 extends createZodDto(ReleaseEventV1Schema) {}
