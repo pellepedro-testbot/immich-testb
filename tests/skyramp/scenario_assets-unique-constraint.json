@@ -1,0 +1,54 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"deviceAssetId\":\"test-device-asset-unique-001\",\"deviceId\":\"test-device-001\",\"fileCreatedAt\":\"2024-01-01T00:00:00.000Z\",\"fileModifiedAt\":\"2024-01-01T00:00:00.000Z\"}",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Bearer SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/api/assets",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 2285,
+    "Timestamp": "2026-06-13T13:49:08.094Z",
+    "Scheme": "http"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"deviceAssetId\":\"test-device-asset-unique-001\",\"deviceId\":\"test-device-001\",\"fileCreatedAt\":\"2024-01-01T00:00:00.000Z\",\"fileModifiedAt\":\"2024-01-01T00:00:00.000Z\"}",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Bearer SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/api/assets",
+    "QueryParams": {},
+    "StatusCode": 409,
+    "Port": 2285,
+    "Timestamp": "2026-06-13T13:49:08.094Z",
+    "Scheme": "http"
+  }
+]
