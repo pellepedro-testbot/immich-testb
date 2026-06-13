@@ -74,6 +74,10 @@ const GetAlbumsSchema = z
       .optional()
       .describe('Filter by shared status: true = only shared, false = not shared, undefined = no filter'),
     assetId: z.uuidv4().optional().describe('Filter albums containing this asset ID (ignores other parameters)'),
+    sortBy: z
+      .enum(['name', 'created', 'updated'])
+      .optional()
+      .describe('Sort results by: name (alphabetical), created (creation date), or updated (last update date)'),
   })
   .meta({ id: 'GetAlbumsDto' });
 

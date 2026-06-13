@@ -37,7 +37,7 @@ export class AlbumService extends BaseService {
     };
   }
 
-  async getAll({ user: { id: ownerId } }: AuthDto, { assetId, ...rest }: GetAlbumsDto): Promise<AlbumResponseDto[]> {
+  async getAll({ user: { id: ownerId } }: AuthDto, { assetId, sortBy, ...rest }: GetAlbumsDto): Promise<AlbumResponseDto[]> {
     await this.albumRepository.updateThumbnails();
 
     const albums = assetId
@@ -56,7 +56,7 @@ export class AlbumService extends BaseService {
       albumMetadata[metadata.albumId] = metadata;
     }
 
-    return albums.map((album) => ({
+    const mapped = albums.map((album) => ({
       ...mapAlbum(album),
       sharedLinks: undefined,
       startDate: asDateTimeString(albumMetadata[album.id]?.startDate ?? undefined),
@@ -65,6 +65,16 @@ export class AlbumService extends BaseService {
       // lastModifiedAssetTimestamp is only used in mobile app, please remove if not need
       lastModifiedAssetTimestamp: asDateTimeString(albumMetadata[album.id]?.lastModifiedAssetTimestamp ?? undefined),
     }));
+
+    if (sortBy === 'name') {
+      mapped.sort((a, b) => a.albumName.localeCompare(b.albumName));
+    } else if (sortBy === 'created') {
+      mapped.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+    } else if (sortBy === 'updated') {
+      mapped.sort((a, b) => a.updatedAt.localeCompare(b.updatedAt));
+    }
+
+    return mapped;
   }
 
   async get(auth: AuthDto, id: string): Promise<AlbumResponseDto> {
